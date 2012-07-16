@@ -3,7 +3,7 @@
 //  WindowBasedApplication
 //
 //  Created by Shahil Shah on 15/07/12.
-//  Copyright (c) 2012 kraftwebsolutions. All rights reserved.
+//  Copyright (c) 2012 shahshangraj@gmail.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
