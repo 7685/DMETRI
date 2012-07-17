@@ -46,6 +46,10 @@
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 250)];
     contentView.backgroundColor = [UIColor whiteColor];
     contentView.layer.cornerRadius = 8.0f;
+    contentView.layer.borderColor = [UIColor blackColor].CGColor;
+    contentView.layer.borderWidth = 1.0;
+    contentView.layer.shadowColor = [UIColor grayColor].CGColor;
+    contentView.layer.shadowRadius = 2.0;
     contentView.layer.masksToBounds = YES;
     
     CGSize maximumLabelSize = CGSizeMake(300,20000);
