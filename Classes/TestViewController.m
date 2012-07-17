@@ -65,7 +65,7 @@
 	_toolbar.frame = CGRectMake(0, self.view.frame.size.height-44*2, [[UIScreen mainScreen] bounds].size.width, 44);
 	
     _scoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _scoreBtn.frame = CGRectMake(0, 2, 50, 40);
+    _scoreBtn.frame = CGRectMake(0, 6, 45, 34);
     [_scoreBtn.layer setCornerRadius:8.0f];
     [_scoreBtn.layer setMasksToBounds:YES];
     [_scoreBtn.layer setBorderWidth:1.0f];
@@ -134,7 +134,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     TestData *tempTestData = [_testQuestions objectAtIndex:section];
     CGSize maximumLabelSize = CGSizeMake(300,20000);
-    CGSize expectedLabelSize = [tempTestData.pregunta sizeWithFont:[UIFont systemFontOfSize:18] 
+    CGSize expectedLabelSize = [tempTestData.pregunta sizeWithFont:[UIFont fontWithName:FONT_NAME size:FONT_HEIGHT] 
                                                              constrainedToSize:maximumLabelSize 
                                                                  lineBreakMode:UILineBreakModeWordWrap]; 
     int imageHeight = 0;
@@ -150,7 +150,7 @@
     TestData *tempTestData = [_testQuestions objectAtIndex:section];
 
     CGSize maximumLabelSize = CGSizeMake(290,20000);
-    CGSize expectedLabelSize = [tempTestData.pregunta sizeWithFont:[UIFont systemFontOfSize:18] 
+    CGSize expectedLabelSize = [tempTestData.pregunta sizeWithFont:[UIFont fontWithName:FONT_NAME size:FONT_HEIGHT] 
                                                  constrainedToSize:maximumLabelSize 
                                                      lineBreakMode:UILineBreakModeWordWrap]; 
     
@@ -165,7 +165,7 @@
     UILabel *questionTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, expectedLabelSize.height + OFFSET_TEST_TEXT)];
     questionTextLabel.backgroundColor = [UIColor clearColor];
     questionTextLabel.adjustsFontSizeToFitWidth = YES;
-    questionTextLabel.font = [UIFont systemFontOfSize:18];
+    questionTextLabel.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
     questionTextLabel.minimumFontSize = 18;
     questionTextLabel.numberOfLines = 10;
     questionTextLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -205,6 +205,7 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
+    cell.textLabel.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     // Configure the cell...
     TestData *tempTestData = [_testQuestions objectAtIndex:indexPath.section];

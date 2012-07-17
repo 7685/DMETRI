@@ -117,6 +117,7 @@
     
     // Configure the cell...
     NSMutableDictionary *dict = [_testData objectAtIndex:indexPath.row];
+    cell.textLabel.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
     cell.textLabel.text = [dict valueForKey:DB_FIELD_ESCALA];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.adjustsFontSizeToFitWidth = YES;

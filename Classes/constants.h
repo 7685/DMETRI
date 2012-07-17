@@ -8,6 +8,8 @@
 
 #define DATABASE_FILE_NAME @"database.sqlite"
 
+#define FONT_NAME @"Verdana"
+#define FONT_HEIGHT 16
 
 //size constants
 #define IMG_TEST_HEIGHT 50
