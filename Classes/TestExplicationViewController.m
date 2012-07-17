@@ -43,22 +43,21 @@
     DatabaseController *dbController = [[DatabaseController alloc] init];
     NSString *descriptionText = [dbController getTestDescription:[NSString stringWithFormat:SQL_QUERY_GET_TEST_DESCRIPTION, _testID]];
     
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 250)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 340)];
     contentView.backgroundColor = [UIColor whiteColor];
     contentView.layer.cornerRadius = 8.0f;
-    contentView.layer.borderColor = [UIColor blackColor].CGColor;
+    contentView.layer.borderColor = [UIColor grayColor].CGColor;
     contentView.layer.borderWidth = 1.0;
-    contentView.layer.shadowColor = [UIColor grayColor].CGColor;
-    contentView.layer.shadowRadius = 0.5;
-    contentView.layer.masksToBounds = YES;
+    contentView.layer.shadowColor = [UIColor blackColor].CGColor;
+    contentView.layer.shadowOffset = CGSizeMake(0, 5);
+//    contentView.layer.shadowRadius = 20;
+    contentView.layer.shadowOpacity = 1;
+    contentView.layer.masksToBounds = NO;
+    contentView.layer.shadowPath = [UIBezierPath bezierPathWithRect:contentView.bounds].CGPath;
     
-    CGSize maximumLabelSize = CGSizeMake(300,20000);
-    CGSize expectedLabelSize = [descriptionText sizeWithFont:[UIFont systemFontOfSize:18] 
-                                           constrainedToSize:maximumLabelSize 
-                                               lineBreakMode:UILineBreakModeWordWrap]; 
-    
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 290, expectedLabelSize.height)];
-    description.numberOfLines = 30;
+    UITextView *description = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 290, 320)];
+    description.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
+    description.scrollEnabled = YES;
     [description setText:descriptionText];
     description.backgroundColor = [UIColor clearColor];
     

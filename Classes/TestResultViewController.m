@@ -38,27 +38,37 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = _testName;
-
+    self.tableView.scrollEnabled = NO;
     DatabaseController *dbController = [[DatabaseController alloc] init];
     NSLog(@"%@", [NSString stringWithFormat:SQL_QUERY_GET_SCORE_STRING, _testID, _totalScore]);
     _resultDictionary = [dbController getResultString:[NSString stringWithFormat:SQL_QUERY_GET_SCORE_STRING, _testID, _totalScore]];
     [_resultDictionary retain];
     
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 250)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 340)];
     contentView.backgroundColor = [UIColor whiteColor];
     contentView.layer.cornerRadius = 8.0f;
-    contentView.layer.masksToBounds = YES;
+    contentView.layer.borderColor = [UIColor grayColor].CGColor;
+    contentView.layer.borderWidth = 1.0;
+    contentView.layer.shadowColor = [UIColor blackColor].CGColor;
+    contentView.layer.shadowOffset = CGSizeMake(0, 5);
+    contentView.layer.shadowOpacity = 1;
+    contentView.layer.masksToBounds = NO;
+    contentView.layer.shadowPath = [UIBezierPath bezierPathWithRect:contentView.bounds].CGPath;
+
     
     NSString *descriptionText = [NSString stringWithFormat:@"%@\n\n%@", [_resultDictionary valueForKey:DB_FIELD_DESCRIPCION1], [_resultDictionary valueForKey:DB_FIELD_DESCRIPCION2]];
     
-    CGSize maximumLabelSize = CGSizeMake(300,20000);
-    CGSize expectedLabelSize = [descriptionText sizeWithFont:[UIFont systemFontOfSize:18] 
-                                                 constrainedToSize:maximumLabelSize 
-                                                     lineBreakMode:UILineBreakModeWordWrap]; 
+//    CGSize maximumLabelSize = CGSizeMake(300,20000);
+//    CGSize expectedLabelSize = [descriptionText sizeWithFont:[UIFont systemFontOfSize:18] 
+//                                                 constrainedToSize:maximumLabelSize 
+//                                                     lineBreakMode:UILineBreakModeWordWrap]; 
     
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 290, expectedLabelSize.height)];
-    description.numberOfLines = 30;
+    UITextView *description = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 290, 320)];
+    //description.numberOfLines = 30;
+    description.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
+    description.scrollEnabled = YES;
     [description setText:descriptionText];
+//    description.text = @"At fifth screen are valid what have we said for the fourth screen. In both screens white region has to be more height.\n\n   Filling the database we have found a problem that we don’t know if could be easy to solve. Text fields have 255 maximum long characters. It’s possible to have longer fields in SQLite?\n\nAt your second and third screen, you will have to change the back button with the new company name (D-Health). For the lower region you have two possibilities. Yo u can make a bit bigger this region or in the other hand you can make the red (or green) region a bit smaller, so we think it looks better. In this screen we would like to know how it looks some longer answer. Could you send to us an example?";
     description.backgroundColor = [UIColor clearColor];
     
     [contentView addSubview:description];
@@ -198,7 +208,7 @@
 	toolbar.frame = CGRectMake(0, self.view.frame.size.height-44*2, [[UIScreen mainScreen] bounds].size.width, 44);
 	
     UIButton *scoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    scoreBtn.frame = CGRectMake(0, 2, 50, 40);
+    scoreBtn.frame = CGRectMake(0, 6, 45, 34);
     [scoreBtn.layer setCornerRadius:8.0f];
     [scoreBtn.layer setMasksToBounds:YES];
     [scoreBtn.layer setBorderWidth:1.0f];
