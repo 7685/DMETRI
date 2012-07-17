@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"D-Metri";
+    self.navigationItem.title = APP_TITLE;
     DatabaseController *dbController = [[DatabaseController alloc] init];
     _testData = [dbController selectFromEscala:SQL_QUERY_ESCALA];
     [_testData retain];

@@ -23,7 +23,7 @@
 #define TEST_INCOMPLETE @"Escala incompleta"
 #define TEST_COMPLETE @"Escala completa"
 #define TEST_RESULT_TEXT @"Jadadosis aguda"
-
+#define APP_TITLE @"D-Health"
 
 //sql queries
 #define SQL_QUERY_ESCALA @"SELECT * FROM escalas"
