@@ -39,7 +39,7 @@
     DatabaseController *dbController = [[DatabaseController alloc] init];
     _testData = [dbController selectFromEscala:SQL_QUERY_ESCALA];
     [_testData retain];
-    
+
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, HEIGHT_SEARCH_BAR)];
 	_searchBar.delegate = self;
 	//_searchBar.tintColor = [UIColor blueColor];
@@ -106,6 +106,17 @@
     return [_testData count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableDictionary *dict = [_testData objectAtIndex:indexPath.row];
+    CGSize maximumLabelSize = CGSizeMake(300,20000);
+    CGSize expectedLabelSize = [[dict valueForKey:DB_FIELD_ESCALA] sizeWithFont:[UIFont fontWithName:FONT_NAME size:FONT_HEIGHT] 
+                                                 constrainedToSize:maximumLabelSize 
+                                                     lineBreakMode:UILineBreakModeWordWrap];
+    return expectedLabelSize.height + 20;
+
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -117,8 +128,16 @@
     
     // Configure the cell...
     NSMutableDictionary *dict = [_testData objectAtIndex:indexPath.row];
+    
+    CGSize maximumLabelSize = CGSizeMake(300,20000);
+    CGSize expectedLabelSize = [[dict valueForKey:DB_FIELD_ESCALA] sizeWithFont:[UIFont fontWithName:FONT_NAME size:FONT_HEIGHT] 
+                                                              constrainedToSize:maximumLabelSize 
+                                                                  lineBreakMode:UILineBreakModeWordWrap];
+    
     cell.textLabel.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
     cell.textLabel.text = [dict valueForKey:DB_FIELD_ESCALA];
+    cell.textLabel.numberOfLines = 5;
+    cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y, cell.textLabel.frame.size.width, expectedLabelSize.height + 20);
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     return cell;
@@ -185,6 +204,14 @@
 	return YES;  
 }
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [_testData release], _testData = nil;
+    DatabaseController *dbController = [[DatabaseController alloc] init];
+    _testData = [dbController selectFromEscala:[NSString stringWithFormat:SQL_QUERY_SEARCH_ESCALA, searchText]];
+    [_testData retain];
+    [self.tableView reloadData];
+}
+
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {  
 	searchBar.showsScopeBar = NO;  
 	[searchBar sizeToFit];  
@@ -199,6 +226,5 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	[_searchBar resignFirstResponder];
- //   [self loadData];
 }
 @end

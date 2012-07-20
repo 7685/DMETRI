@@ -32,7 +32,7 @@
 #define SQL_QUERY_PREGUNTAS @"SELECT * FROM preguntas WHERE id_escala=%d ORDER BY orden ASC"
 #define SQL_QUERY_GET_SCORE_STRING @"SELECT descripcion1, descripcion2 FROM valoraciones WHERE id_escala=%d AND valor=%d"
 #define SQL_QUERY_GET_TEST_DESCRIPTION @"SELECT desc FROM escalas WHERE id=%d"
-
+#define SQL_QUERY_SEARCH_ESCALA @"SELECT * FROM escalas WHERE escala LIKE '%%%@%%'"
 
 //database field constants
 #define DB_FIELD_ID @"id"

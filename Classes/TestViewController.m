@@ -43,6 +43,19 @@
     _testQuestions = [dbController selectFromPreguntas:[NSString stringWithFormat:SQL_QUERY_PREGUNTAS, _testID]];
     [_testQuestions retain];
     [dbController release], dbController = nil;
+    
+    TestData *tempTestData = [[TestData alloc] init];
+    tempTestData.pregunta = @"this is  a test question.";
+    tempTestData.r1 =  @"hello worlf yoyo im a good good yoyo hie";
+    tempTestData.r2 = @"hahahaah dancing queen.... young anf sweet yeay yea...";
+    tempTestData.r3 = @"";
+    tempTestData.r4 = @"";
+    tempTestData.r5 = @"";
+    tempTestData.r6 = @"";
+    tempTestData.r7 = @"";
+    tempTestData.multiple = 1;
+    [_testQuestions addObject:tempTestData];
+    [tempTestData release], tempTestData = nil;
 }
 
 - (void)dealloc {
@@ -73,7 +86,7 @@
     _scoreBtn.backgroundColor = [UIColor redColor];
     [_scoreBtn setTitle:@"0" forState:UIControlStateNormal];
     [_scoreBtn setBackgroundColor:[UIColor redColor]];
-
+    
     _testStatusText = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 150, 40)];
     _testStatusText.backgroundColor = [UIColor clearColor];
     [_testStatusText setFont:[UIFont boldSystemFontOfSize:16.0]];
@@ -135,8 +148,8 @@
     TestData *tempTestData = [_testQuestions objectAtIndex:section];
     CGSize maximumLabelSize = CGSizeMake(300,20000);
     CGSize expectedLabelSize = [tempTestData.pregunta sizeWithFont:[UIFont fontWithName:FONT_NAME size:FONT_HEIGHT] 
-                                                             constrainedToSize:maximumLabelSize 
-                                                                 lineBreakMode:UILineBreakModeWordWrap]; 
+                                                 constrainedToSize:maximumLabelSize 
+                                                     lineBreakMode:UILineBreakModeWordWrap]; 
     int imageHeight = 0;
     if (![tempTestData.imageName isEqualToString:BLANK_STRING]) {
         imageHeight = IMG_TEST_HEIGHT + OFFSET_TEST_IMAGE;
@@ -148,7 +161,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     TestData *tempTestData = [_testQuestions objectAtIndex:section];
-
+    
     CGSize maximumLabelSize = CGSizeMake(290,20000);
     CGSize expectedLabelSize = [tempTestData.pregunta sizeWithFont:[UIFont fontWithName:FONT_NAME size:FONT_HEIGHT] 
                                                  constrainedToSize:maximumLabelSize 
@@ -160,8 +173,8 @@
     }
     
     UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(10, 0, 300, expectedLabelSize.height+imageHeight + OFFSET_TEST_TEXT)] autorelease];
-//    headerView.backgroundColor = [UIColor whiteColor];
-
+    //    headerView.backgroundColor = [UIColor whiteColor];
+    
     UILabel *questionTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 290, expectedLabelSize.height + OFFSET_TEST_TEXT)];
     questionTextLabel.backgroundColor = [UIColor clearColor];
     questionTextLabel.adjustsFontSizeToFitWidth = YES;
@@ -195,6 +208,43 @@
     // Return the number of rows in the section.
     TestData *tempTestData = [_testQuestions objectAtIndex:section];
     return [tempTestData getTotalValidOptions];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TestData *tempTestData = [_testQuestions objectAtIndex:indexPath.section];
+
+    NSString *questionString;
+    switch (indexPath.row) {
+        case 0:
+            questionString = tempTestData.r1;
+            break;
+        case 1:
+            questionString = tempTestData.r2;
+            break;
+        case 2:
+            questionString = tempTestData.r3;
+            break;
+        case 3:
+            questionString = tempTestData.r4;
+            break;
+        case 4:
+            questionString = tempTestData.r5;
+            break;
+        case 5:
+            questionString = tempTestData.r6;
+            break;
+        case 6:
+            questionString = tempTestData.r7;
+            break;
+    }
+    
+    CGSize maximumLabelSize = CGSizeMake(300,20000);
+    CGSize expectedLabelSize = [questionString sizeWithFont:[UIFont fontWithName:FONT_NAME size:FONT_HEIGHT] 
+                                          constrainedToSize:maximumLabelSize 
+                                              lineBreakMode:UILineBreakModeWordWrap];
+    return expectedLabelSize.height + 20;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -239,47 +289,55 @@
             cell.textLabel.text = tempTestData.r7;
             break;
     }
+    
+    CGSize maximumLabelSize = CGSizeMake(300,20000);
+    CGSize expectedLabelSize = [cell.textLabel.text sizeWithFont:[UIFont fontWithName:FONT_NAME size:FONT_HEIGHT] 
+                                               constrainedToSize:maximumLabelSize 
+                                                   lineBreakMode:UILineBreakModeWordWrap];
+    cell.textLabel.numberOfLines = 5;
+    cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y, cell.textLabel.frame.size.width, expectedLabelSize.height + 20);
+    
     return cell;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }   
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }   
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 #pragma mark - Table view delegate
 
