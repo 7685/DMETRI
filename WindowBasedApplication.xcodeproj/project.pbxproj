@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		BB9C7BA515B9C57F0035F196 /* TestNames.m in Sources */ = {isa = PBXBuildFile; fileRef = BB9C7BA415B9C57F0035F196 /* TestNames.m */; };
 		BBA3E70815B52362002736E0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA3E70615B52362002736E0 /* Default.png */; };
 		BBA3E70915B52362002736E0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA3E70715B52362002736E0 /* Default@2x.png */; };
 		BBB5BB4F15B3179900EE4525 /* DatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB5BB4E15B3179900EE4525 /* DatabaseController.m */; };
@@ -37,6 +38,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* WindowBasedApplication_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowBasedApplication_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* WindowBasedApplication-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WindowBasedApplication-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		BB9C7BA315B9C57F0035F196 /* TestNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNames.h; sourceTree = "<group>"; };
+		BB9C7BA415B9C57F0035F196 /* TestNames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNames.m; sourceTree = "<group>"; };
 		BBA3E70615B52362002736E0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = SOURCE_ROOT; };
 		BBA3E70715B52362002736E0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Images/Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		BBB5BB4D15B3179900EE4525 /* DatabaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseController.h; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 			children = (
 				BBB5BB7115B34A7700EE4525 /* TestData.h */,
 				BBB5BB7215B34A7700EE4525 /* TestData.m */,
+				BB9C7BA315B9C57F0035F196 /* TestNames.h */,
+				BB9C7BA415B9C57F0035F196 /* TestNames.m */,
 			);
 			name = "Data Objects";
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 				BBB5BB7315B34A7700EE4525 /* TestData.m in Sources */,
 				BBF4E3A515B44E5300C665AA /* TestResultViewController.m in Sources */,
 				BBF4E3AB15B466B500C665AA /* TestExplicationViewController.m in Sources */,
+				BB9C7BA515B9C57F0035F196 /* TestNames.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

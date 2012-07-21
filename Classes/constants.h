@@ -19,6 +19,7 @@
 #define STATUS_BAR_HEIGHT 20
 #define TOOLBAR_HEIGHT 44
 #define HEIGHT_SEARCH_BAR 44
+#define SECTION_HEADER_HEIGHT 20
 
 //text constants
 #define BLANK_STRING @""
@@ -26,9 +27,11 @@
 #define TEST_COMPLETE @"Escala completa"
 #define TEST_RESULT_TEXT @"Jadadosis aguda"
 #define APP_TITLE @"D-Health"
+#define SEARCH_TITLE @"Busca..."
 
 //sql queries
-#define SQL_QUERY_ESCALA @"SELECT * FROM escalas"
+#define SQL_QUERY_ALL_ESCALA @"SELECT * FROM escalas"
+#define SQL_QUERY_ESCALA @"SELECT * FROM escalas WHERE escala LIKE '%@%%'"
 #define SQL_QUERY_PREGUNTAS @"SELECT * FROM preguntas WHERE id_escala=%d ORDER BY orden ASC"
 #define SQL_QUERY_GET_SCORE_STRING @"SELECT descripcion1, descripcion2 FROM valoraciones WHERE id_escala=%d AND valor=%d"
 #define SQL_QUERY_GET_TEST_DESCRIPTION @"SELECT desc FROM escalas WHERE id=%d"

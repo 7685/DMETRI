@@ -95,6 +95,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationItem.backBarButtonItem.title = APP_TITLE;
 }
 
 - (void)viewDidAppear:(BOOL)animated

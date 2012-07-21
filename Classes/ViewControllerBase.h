@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewControllerBase : UITableViewController <UISearchBarDelegate> {
-    NSMutableArray *_testData;
+    NSMutableArray *_testData, *_allTestData;
     UISearchBar *_searchBar;
+    BOOL _isSearching;
+    NSArray *_arr;
 }
 
 @end

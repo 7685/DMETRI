@@ -44,18 +44,19 @@
     [_testQuestions retain];
     [dbController release], dbController = nil;
     
-    TestData *tempTestData = [[TestData alloc] init];
-    tempTestData.pregunta = @"this is  a test question.";
-    tempTestData.r1 =  @"hello worlf yoyo im a good good yoyo hie";
-    tempTestData.r2 = @"hahahaah dancing queen.... young anf sweet yeay yea...";
-    tempTestData.r3 = @"";
-    tempTestData.r4 = @"";
-    tempTestData.r5 = @"";
-    tempTestData.r6 = @"";
-    tempTestData.r7 = @"";
-    tempTestData.multiple = 1;
-    [_testQuestions addObject:tempTestData];
-    [tempTestData release], tempTestData = nil;
+//    TestData *tempTestData = [[TestData alloc] init];
+//    tempTestData.pregunta = @"this is  a test question.";
+//    tempTestData.r1 =  @"hello worlf yoyo im a good good yoyo hie";
+//    tempTestData.r2 = @"hahahaah dancing queen.... young anf sweet yeay yea...";
+//    tempTestData.r3 = @"";
+//    tempTestData.r4 = @"";
+//    tempTestData.r5 = @"";
+//    tempTestData.r6 = @"";
+//    tempTestData.r7 = @"";
+//    tempTestData.multiple = 1;
+//    tempTestData.imageName = BLANK_STRING;
+//    [_testQuestions addObject:tempTestData];
+//    [tempTestData release], tempTestData = nil;
 }
 
 - (void)dealloc {
@@ -405,6 +406,13 @@
     testResultVC.totalScore = _totalScore;
     testResultVC.testID = _testID;
     testResultVC.testName = _testName;
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: APP_TITLE 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    
+    [self.navigationItem setBackBarButtonItem: backButton];
+    [backButton release];
     [self.navigationController pushViewController:testResultVC animated:YES];
     [testResultVC release], testResultVC = nil;
 }
