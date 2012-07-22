@@ -20,6 +20,7 @@
     UIButton *_scoreBtn;
     UILabel *_testStatusText;
     UIToolbar *_toolbar;
+    BOOL _testCompleted;
 }
 
 @property(nonatomic)int testID;

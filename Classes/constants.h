@@ -12,7 +12,7 @@
 #define FONT_HEIGHT 16
 
 //size constants
-#define IMG_TEST_HEIGHT 50
+#define IMG_TEST_HEIGHT 75
 #define OFFSET_TEST_IMAGE 10
 #define OFFSET_TEST_TEXT 20
 #define NAVIGATION_BAR_HEIGHT 44

@@ -179,10 +179,16 @@
             testData.multiple = (int)sqlite3_column_int(sqlStmt, 13);
             
             if ((char *)sqlite3_column_text(sqlStmt, 14) == NULL)
-                testData.imageName = @"";
-            else
-                testData.imageName = [NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStmt, 14)];
-            
+                testData.imageData = nil;
+            else {
+                NSData *data = [[NSData alloc] initWithBytes:sqlite3_column_blob(sqlStmt, 14) length:sqlite3_column_bytes(sqlStmt, 14)];
+                if ([data length] == 0) {
+                    testData.imageData = nil;
+                }
+                else
+                    testData.imageData = data;
+                [data release], data = nil;
+            }
             testData.escala_id =  (int)sqlite3_column_int(sqlStmt, 15);
             testData.v[2] = (int)sqlite3_column_int(sqlStmt, 16);
             testData.v[3] = (int)sqlite3_column_int(sqlStmt, 17);

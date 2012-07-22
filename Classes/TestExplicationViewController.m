@@ -43,7 +43,7 @@
     DatabaseController *dbController = [[DatabaseController alloc] init];
     NSString *descriptionText = [dbController getTestDescription:[NSString stringWithFormat:SQL_QUERY_GET_TEST_DESCRIPTION, _testID]];
     
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 340)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 400)];
     contentView.backgroundColor = [UIColor whiteColor];
     contentView.layer.cornerRadius = 8.0f;
     contentView.layer.borderColor = [UIColor grayColor].CGColor;
@@ -55,14 +55,17 @@
     contentView.layer.masksToBounds = NO;
     contentView.layer.shadowPath = [UIBezierPath bezierPathWithRect:contentView.bounds].CGPath;
     
-    UITextView *description = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 290, 320)];
+    UITextView *description = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 290, 380)];
     description.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
     description.scrollEnabled = YES;
     [description setText:descriptionText];
     description.backgroundColor = [UIColor clearColor];
+    description.editable = NO;
     
     [contentView addSubview:description];
     [self.view addSubview:contentView];
+    self.tableView.scrollEnabled = NO;
+    
     [contentView release], contentView = nil;
     [description release], description = nil;
 }
@@ -190,4 +193,5 @@
 - (void)dismissView {
     [self dismissModalViewControllerAnimated:YES];
 }
+
 @end

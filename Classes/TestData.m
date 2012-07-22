@@ -11,7 +11,7 @@
 
 @implementation TestData
 
-@synthesize pregunta = _pregunta, r1 = _r1, r2 = _r2, r3 = _r3, r4 = _r4, r5 = _r5, r6 = _r6, r7 = _r7, v = _v, escala_id = _escala_id, orden = _orden, multiple = _multiple, imageName = _imageName, isSelected = _isSelected;
+@synthesize pregunta = _pregunta, r1 = _r1, r2 = _r2, r3 = _r3, r4 = _r4, r5 = _r5, r6 = _r6, r7 = _r7, v = _v, escala_id = _escala_id, orden = _orden, multiple = _multiple, isSelected = _isSelected, imageData = _imageData;
 
 - (id)init {
     [super init];
@@ -55,7 +55,7 @@
 - (void)dealloc {
     free(_isSelected);
     free(_v);
-    [_imageName release], _imageName = nil;
+    [_imageData release], _imageData = nil;
     [_pregunta release], _pregunta = nil;
     [_r1 release], _r1 = nil;
     [_r2 release], _r2 = nil;

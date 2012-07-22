@@ -31,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _testCompleted = NO;
     self.navigationItem.title = _testName;
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkBtnClicked)] autorelease];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - STATUS_BAR_HEIGHT - NAVIGATION_BAR_HEIGHT - TOOLBAR_HEIGHT) style:UITableViewStyleGrouped];
@@ -43,20 +44,7 @@
     _testQuestions = [dbController selectFromPreguntas:[NSString stringWithFormat:SQL_QUERY_PREGUNTAS, _testID]];
     [_testQuestions retain];
     [dbController release], dbController = nil;
-    
-//    TestData *tempTestData = [[TestData alloc] init];
-//    tempTestData.pregunta = @"this is  a test question.";
-//    tempTestData.r1 =  @"hello worlf yoyo im a good good yoyo hie";
-//    tempTestData.r2 = @"hahahaah dancing queen.... young anf sweet yeay yea...";
-//    tempTestData.r3 = @"";
-//    tempTestData.r4 = @"";
-//    tempTestData.r5 = @"";
-//    tempTestData.r6 = @"";
-//    tempTestData.r7 = @"";
-//    tempTestData.multiple = 1;
-//    tempTestData.imageName = BLANK_STRING;
-//    [_testQuestions addObject:tempTestData];
-//    [tempTestData release], tempTestData = nil;
+
 }
 
 - (void)dealloc {
@@ -152,7 +140,7 @@
                                                  constrainedToSize:maximumLabelSize 
                                                      lineBreakMode:UILineBreakModeWordWrap]; 
     int imageHeight = 0;
-    if (![tempTestData.imageName isEqualToString:BLANK_STRING]) {
+    if (tempTestData.imageData != nil) {
         imageHeight = IMG_TEST_HEIGHT + OFFSET_TEST_IMAGE;
     }
     
@@ -169,7 +157,7 @@
                                                      lineBreakMode:UILineBreakModeWordWrap]; 
     
     int imageHeight = 0;
-    if (![tempTestData.imageName isEqualToString:BLANK_STRING]) {
+    if (tempTestData.imageData != nil) {
         imageHeight = IMG_TEST_HEIGHT + OFFSET_TEST_IMAGE;
     }
     
@@ -187,9 +175,9 @@
     [headerView addSubview:questionTextLabel];
     
     
-    if (![tempTestData.imageName isEqualToString:BLANK_STRING]) {
-        UIImageView *questionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image_example.png"]];
-        questionImageView.frame = CGRectMake(10, questionTextLabel.frame.size.height + OFFSET_TEST_IMAGE, 290, IMG_TEST_HEIGHT);
+    if (tempTestData.imageData != nil) {
+        UIImageView *questionImageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:tempTestData.imageData]];
+        questionImageView.frame = CGRectMake(10, questionTextLabel.frame.size.height, 290, IMG_TEST_HEIGHT);
         [headerView addSubview:questionImageView];
         [questionImageView release], questionImageView = nil;
     }
@@ -383,14 +371,16 @@
             testCompleted++;
         }
     }
-    if (testCompleted == [_testQuestions count]) {
+    if (testCompleted >= [_testQuestions count] && !_testCompleted) {
+        _testCompleted = YES;
         _testStatusText.text = TEST_COMPLETE;
         _scoreBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.55 blue:0.27 alpha:1.0];
         NSMutableArray     *items = [[_toolbar.items mutableCopy] autorelease];
         [items addObject:_plusBtn];
         _toolbar.items = items;
     }
-    else {
+    else if (testCompleted < [_testQuestions count]) {
+        _testCompleted = NO;
         _testStatusText.text = TEST_INCOMPLETE;
         _scoreBtn.backgroundColor = [UIColor redColor];
         NSMutableArray     *items = [[_toolbar.items mutableCopy] autorelease];
