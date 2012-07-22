@@ -14,7 +14,7 @@
     NSData *_imageData;
 }
 
-@property(nonatomic, copy)NSString *pregunta, *imageName;
+@property(nonatomic, copy)NSString *pregunta;
 @property(nonatomic)int *isSelected;
 @property(nonatomic, copy)NSString *r1, *r2, *r3, *r4, *r5, *r6, *r7;
 @property(nonatomic)int escala_id, *v, orden, multiple;
