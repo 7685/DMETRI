@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 shahshangraj@gmail.com. All rights reserved.
 //
 
+#define SPLASH_SLEEP_TIME 3
 #define DATABASE_FILE_NAME @"database.sqlite"
 
 #define FONT_NAME @"Verdana"

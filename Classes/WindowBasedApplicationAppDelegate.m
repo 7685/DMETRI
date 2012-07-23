@@ -23,12 +23,19 @@
     
     // Override point for customization after application launch.
     [self createEditableCopyOfDatabaseIfNeeded];
+    UIImageView *splashView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default.png"]];
+    
 	viewControllerBase = [[ViewControllerBase alloc]initWithNibName:nil bundle:nil];
     UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:viewControllerBase] autorelease];
     self.window.rootViewController = nav;
 //	[self.window addSubview:nav.view];
     [self.window makeKeyAndVisible];
     
+    [self.window addSubview:splashView];
+    sleep(SPLASH_SLEEP_TIME);
+    [splashView removeFromSuperview];
+    [splashView release];
+
     return YES;
 }
 
