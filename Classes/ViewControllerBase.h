@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewControllerBase : UITableViewController <UISearchBarDelegate> {
+@interface ViewControllerBase : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate> {
+    UITableView *_tableView;
     NSMutableArray *_testData, *_allTestData;
     UISearchBar *_searchBar;
     BOOL _isSearching;
     NSArray *_arr;
+    UIToolbar *_toolbar;
 }
 
 @end

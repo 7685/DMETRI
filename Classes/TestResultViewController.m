@@ -13,7 +13,7 @@
 
 @implementation TestResultViewController
 
-@synthesize testID = _testID, totalScore = _totalScore, testName = _testName;
+@synthesize testID = _testID, totalScore = _totalScore, testName = _testName, bottombarText = _bottombarText;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -214,10 +214,10 @@
     [scoreBtn setTitle:[NSString stringWithFormat:@"%d", _totalScore] forState:UIControlStateNormal];
     [scoreBtn setBackgroundColor:[UIColor colorWithRed:0.0 green:0.55 blue:0.27 alpha:1.0]];
     
-    UILabel *testStatusText = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 150, 40)];
+    UILabel *testStatusText = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 200, 40)];
     testStatusText.backgroundColor = [UIColor clearColor];
     [testStatusText setFont:[UIFont boldSystemFontOfSize:16.0]];
-    testStatusText.text = TEST_RESULT_TEXT;
+    testStatusText.text = _bottombarText;
     
     UIBarButtonItem *scoreBarBtn = [[UIBarButtonItem alloc] initWithCustomView:scoreBtn];
     UIBarButtonItem *testStatusTextBarBtn = [[UIBarButtonItem alloc] initWithCustomView:testStatusText];    

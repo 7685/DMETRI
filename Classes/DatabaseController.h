@@ -14,4 +14,5 @@
 - (NSMutableArray*)selectFromPreguntas:(NSString*)sql;
 - (NSDictionary*)getResultString:(NSString*)sql;
 - (NSString*)getTestDescription:(NSString*)sql;
+- (NSString *)getInfoBarText:(NSString*)sql;
 @end

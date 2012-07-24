@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 shahshangraj@gmail.com. All rights reserved.
 //
 
-#define SPLASH_SLEEP_TIME 3
+#define SPLASH_SLEEP_TIME 2
 #define DATABASE_FILE_NAME @"database.sqlite"
 
 #define FONT_NAME @"Verdana"
@@ -37,9 +37,13 @@
 #define SQL_QUERY_GET_SCORE_STRING @"SELECT descripcion1, descripcion2 FROM valoraciones WHERE id_escala=%d AND valor=%d"
 #define SQL_QUERY_GET_TEST_DESCRIPTION @"SELECT desc FROM escalas WHERE id=%d"
 #define SQL_QUERY_SEARCH_ESCALA @"SELECT * FROM escalas WHERE escala LIKE '%%%@%%'"
+#define SQL_QUERY_GET_INFOBAR_DATA @"SELECT %@ FROM infobar LIMIT 1"
 
 //database field constants
 #define DB_FIELD_ID @"id"
 #define DB_FIELD_ESCALA @"escala_id"
 #define DB_FIELD_DESCRIPCION1 @"descripcion1"
 #define DB_FIELD_DESCRIPCION2 @"descripcion2"
+#define DB_FIELD_ACERCA @"acerca"
+#define DB_FIELD_AYUDA @"ayuda"
+#define DB_FIELD_FEEDBACK @"feedback"

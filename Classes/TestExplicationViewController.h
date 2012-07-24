@@ -11,8 +11,11 @@
 @interface TestExplicationViewController : UITableViewController {
     int _testID;
     NSString *_testName;
+    BOOL _isExplication;
+    NSString *content;
 }
 
 @property(nonatomic, copy)NSString *testName;
 @property(nonatomic)int testID;
+@property(nonatomic)BOOL isExplication;
 @end

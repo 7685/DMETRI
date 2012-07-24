@@ -11,10 +11,11 @@
 @interface TestResultViewController : UITableViewController {
     int _testID, _totalScore;
     NSString *_testName;
+    NSString *_bottombarText;
     NSDictionary *_resultDictionary;
 }
 
-@property(nonatomic, copy)NSString *testName;
+@property(nonatomic, copy)NSString *testName, *bottombarText;
 @property(nonatomic)int testID, totalScore;
 
 - (void)addMenuToolBar;

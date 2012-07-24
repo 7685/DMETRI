@@ -204,4 +204,32 @@
     }
     return [dataTuples autorelease];
 }
+
+- (NSString *)getInfoBarText:(NSString*)sql {
+    NSString *responseText;
+    sqlite3 *database;
+    // The database is stored in the application bundle. 
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:DATABASE_FILE_NAME];
+    // Open the database. The database was prepared outside the application.
+    if (sqlite3_open([path UTF8String], &database) == SQLITE_OK) {
+        sqlite3_stmt *sqlStmt = nil;
+        //        const char *sql;
+        //        sql = "SELECT * FROM escala";
+        
+        if(sqlite3_prepare_v2(database, [sql cStringUsingEncoding:NSASCIIStringEncoding], -1, &sqlStmt, NULL) != SQLITE_OK)
+            NSAssert1(0, @"Error while creating add statement. '%s'", sqlite3_errmsg(database));
+        
+        // Loop through the results and add them to the feeds array
+        while(sqlite3_step(sqlStmt) == SQLITE_ROW) {
+            // Read the data from the result row
+            responseText = [NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStmt, 0)];
+        }
+        // Release the compiled statement from memory
+        sqlite3_finalize(sqlStmt);
+        sqlite3_close(database);
+    }
+    return responseText;
+}
 @end

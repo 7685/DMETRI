@@ -76,7 +76,7 @@
     [_scoreBtn setTitle:@"0" forState:UIControlStateNormal];
     [_scoreBtn setBackgroundColor:[UIColor redColor]];
     
-    _testStatusText = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 150, 40)];
+    _testStatusText = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 200, 40)];
     _testStatusText.backgroundColor = [UIColor clearColor];
     [_testStatusText setFont:[UIFont boldSystemFontOfSize:16.0]];
     _testStatusText.text = TEST_INCOMPLETE;
@@ -371,13 +371,18 @@
             testCompleted++;
         }
     }
-    if (testCompleted >= [_testQuestions count] && !_testCompleted) {
-        _testCompleted = YES;
-        _testStatusText.text = TEST_COMPLETE;
-        _scoreBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.55 blue:0.27 alpha:1.0];
-        NSMutableArray     *items = [[_toolbar.items mutableCopy] autorelease];
-        [items addObject:_plusBtn];
-        _toolbar.items = items;
+    if (testCompleted >= [_testQuestions count]) {
+        DatabaseController *dbController = [[DatabaseController alloc] init];
+        NSDictionary *dict = [dbController getResultString:[NSString stringWithFormat:SQL_QUERY_GET_SCORE_STRING, _testID, _totalScore]];
+        _testStatusText.text = [dict valueForKey:DB_FIELD_DESCRIPCION1];
+        [dbController release], dbController = nil;
+        if (!_testCompleted) {
+            _testCompleted = YES;
+            _scoreBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.55 blue:0.27 alpha:1.0];
+            NSMutableArray     *items = [[_toolbar.items mutableCopy] autorelease];
+            [items addObject:_plusBtn];
+            _toolbar.items = items;            
+        }
     }
     else if (testCompleted < [_testQuestions count]) {
         _testCompleted = NO;
@@ -387,7 +392,6 @@
         [items removeObject: _plusBtn];
         _toolbar.items = items;
     }
-    
     [_scoreBtn setTitle:[NSString stringWithFormat:@"%d", _totalScore] forState:UIControlStateNormal];
 }
 
@@ -396,6 +400,7 @@
     testResultVC.totalScore = _totalScore;
     testResultVC.testID = _testID;
     testResultVC.testName = _testName;
+    testResultVC.bottombarText = _testStatusText.text;
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: APP_TITLE 
                                    style: UIBarButtonItemStyleBordered
@@ -411,6 +416,7 @@
     TestExplicationViewController *testExplicationVC = [[TestExplicationViewController alloc] initWithStyle:UITableViewStyleGrouped];
     testExplicationVC.testID = _testID;
     testExplicationVC.testName = _testName;
+    testExplicationVC.isExplication = YES;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:testExplicationVC];
     [self presentModalViewController:nav animated:YES];

@@ -7,21 +7,13 @@
 //
 
 #import "ViewControllerBase.h"
+#import "TestExplicationViewController.h"
 #import "DatabaseController.h"
 #import "TestViewController.h"
 #import "TestNames.h"
 #import "constants.h"
 
 @implementation ViewControllerBase
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -36,6 +28,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, [[UIScreen mainScreen] bounds].size.height - NAVIGATION_BAR_HEIGHT - STATUS_BAR_HEIGHT - HEIGHT_SEARCH_BAR) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    
     self.navigationItem.title = APP_TITLE;
     _arr = [[NSArray alloc] initWithObjects:@"{search}", @"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", nil];
     DatabaseController *dbController = [[DatabaseController alloc] init];
@@ -54,12 +50,26 @@
     [_allTestData retain];
     [dbController release], dbController = nil;
     
+    _toolbar = [UIToolbar new];
+	_toolbar.barStyle = UIBarStyleDefault;
+	[_toolbar sizeToFit];
+	_toolbar.frame = CGRectMake(0, self.view.frame.size.height-44*2, [[UIScreen mainScreen] bounds].size.width, 44);
+
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Acerca de", @"Ayuda", @"Feedback", nil]];
+    segmentControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    segmentControl.frame = CGRectMake(50, 8, 220, 28);
+    [segmentControl addTarget:self action:@selector(segmentedControlSelected:) forControlEvents:UIControlEventValueChanged];
+    [_toolbar addSubview:segmentControl];
+    
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, HEIGHT_SEARCH_BAR)];
 	_searchBar.delegate = self;
     _searchBar.text = BLANK_STRING;
 	//_searchBar.tintColor = [UIColor blueColor];
 	_searchBar.placeholder = SEARCH_TITLE;
-    self.tableView.tableHeaderView = _searchBar;
+    _tableView.tableHeaderView = _searchBar;
+    
+    [self.view addSubview:_tableView];
+    [self.view addSubview:_toolbar];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -68,8 +78,21 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)segmentedControlSelected:(id)sender {
+    UISegmentedControl *segmentedCtrl = (UISegmentedControl*)sender;
+    TestExplicationViewController *testExplicationVC = [[TestExplicationViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    testExplicationVC.testID = segmentedCtrl.selectedSegmentIndex;
+    testExplicationVC.testName = [segmentedCtrl titleForSegmentAtIndex:segmentedCtrl.selectedSegmentIndex];
+    testExplicationVC.isExplication = NO;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:testExplicationVC];
+    [self presentModalViewController:nav animated:YES];
+    [testExplicationVC release], testExplicationVC = nil;
+    [nav release], nav = nil;
+}
 - (void)dealloc
 {
+    [_tableView release], _tableView = nil;
+    [_toolbar release], _toolbar = nil;
     [_arr release], _arr = nil;
     [_searchBar release], _searchBar = nil;
     [_testData release], _testData = nil;
@@ -201,27 +224,30 @@
     return -1;
 }
 
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (_isSearching || ![_searchBar.text isEqualToString:BLANK_STRING]) {
-        return nil;
-    }
+- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     TestNames *testName = [_testData objectAtIndex:section];
-    
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, SECTION_HEADER_HEIGHT)];
-    
-	header.backgroundColor = [UIColor lightGrayColor];
-	
-	UILabel *leftLbl = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 250, 10)];
-	leftLbl.textColor = [UIColor whiteColor];
-	leftLbl.backgroundColor = [UIColor clearColor];
-	leftLbl.font = [UIFont boldSystemFontOfSize:10.0];
-	leftLbl.text = testName.startAlphabet;
-	
-	[header addSubview:leftLbl];
-	[leftLbl release];
-	
-	return [header autorelease];
+    return testName.startAlphabet;
 }
+//- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    if (_isSearching || ![_searchBar.text isEqualToString:BLANK_STRING]) {
+//        return nil;
+//    }
+//    TestNames *testName = [_testData objectAtIndex:section];
+//    
+//    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, SECTION_HEADER_HEIGHT)];
+//	header.backgroundColor = [UIColor blueColor];
+//	
+//	UILabel *leftLbl = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 250, 10)];
+//	leftLbl.textColor = [UIColor whiteColor];
+//	leftLbl.backgroundColor = [UIColor clearColor];
+//	leftLbl.font = [UIFont boldSystemFontOfSize:10.0];
+//	leftLbl.text = testName.startAlphabet;
+//	
+//	[header addSubview:leftLbl];
+//	[leftLbl release];
+//	
+//	return [header autorelease];
+//}
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     if (_isSearching || ![_searchBar.text isEqualToString:BLANK_STRING]) {
@@ -259,7 +285,7 @@
     DatabaseController *dbController = [[DatabaseController alloc] init];
     _allTestData = [dbController selectFromEscala:[NSString stringWithFormat:SQL_QUERY_SEARCH_ESCALA, searchText]];
     [_allTestData retain];
-    [self.tableView reloadData];
+    [_tableView reloadData];
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {  
@@ -273,7 +299,7 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     _isSearching = NO;
 	[_searchBar resignFirstResponder];
-    [self.tableView reloadData];
+    [_tableView reloadData];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {

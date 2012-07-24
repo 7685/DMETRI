@@ -13,7 +13,7 @@
 
 @implementation TestExplicationViewController
 
-@synthesize testID = _testID, testName = _testName;
+@synthesize testID = _testID, testName = _testName, isExplication = _isExplication;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,7 +41,23 @@
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissView)] autorelease];
     
     DatabaseController *dbController = [[DatabaseController alloc] init];
-    NSString *descriptionText = [dbController getTestDescription:[NSString stringWithFormat:SQL_QUERY_GET_TEST_DESCRIPTION, _testID]];
+    NSString *descriptionText;
+    if (_isExplication) {
+        descriptionText = [dbController getTestDescription:[NSString stringWithFormat:SQL_QUERY_GET_TEST_DESCRIPTION, _testID]];
+    }
+    else {
+        switch (_testID) { //in this case, it refers as 0:acerca 1:ayuda 2:feedback
+            case 0:
+                descriptionText = [dbController getInfoBarText:[NSString stringWithFormat:SQL_QUERY_GET_INFOBAR_DATA, DB_FIELD_ACERCA]];
+                break;
+            case 1:
+                descriptionText = [dbController getInfoBarText:[NSString stringWithFormat:SQL_QUERY_GET_INFOBAR_DATA, DB_FIELD_AYUDA]];
+                break;
+            case 2:
+                descriptionText = [dbController getInfoBarText:[NSString stringWithFormat:SQL_QUERY_GET_INFOBAR_DATA, DB_FIELD_FEEDBACK]];
+                break;
+        }
+    }
     
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 380)];
     contentView.backgroundColor = [UIColor whiteColor];

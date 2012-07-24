@@ -24,6 +24,7 @@
 		BBC9534F15BC9ABF00F180AB /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBC9534E15BC9ABF00F180AB /* Entitlements.plist */; };
 		BBC9535215BC9C6100F180AB /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC9535015BC9C6100F180AB /* icon.png */; };
 		BBC9535315BC9C6100F180AB /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC9535115BC9C6100F180AB /* icon@2x.png */; };
+		BBDAFE7015BE345F0081D1D9 /* BXline_s.png in Resources */ = {isa = PBXBuildFile; fileRef = BBDAFE6F15BE345F0081D1D9 /* BXline_s.png */; };
 		BBF4E37015B3D7FE00C665AA /* database.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = BBF4E36F15B3D7FE00C665AA /* database.sqlite */; };
 		BBF4E3A515B44E5300C665AA /* TestResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF4E3A415B44E5300C665AA /* TestResultViewController.m */; };
 		BBF4E3AB15B466B500C665AA /* TestExplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF4E3AA15B466B500C665AA /* TestExplicationViewController.m */; };
@@ -57,6 +58,7 @@
 		BBC9534E15BC9ABF00F180AB /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		BBC9535015BC9C6100F180AB /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Images/icon.png; sourceTree = SOURCE_ROOT; };
 		BBC9535115BC9C6100F180AB /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Images/icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		BBDAFE6F15BE345F0081D1D9 /* BXline_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BXline_s.png; path = Images/BXline_s.png; sourceTree = SOURCE_ROOT; };
 		BBF4E36F15B3D7FE00C665AA /* database.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = database.sqlite; sourceTree = SOURCE_ROOT; };
 		BBF4E3A315B44E5200C665AA /* TestResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestResultViewController.h; sourceTree = "<group>"; };
 		BBF4E3A415B44E5300C665AA /* TestResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestResultViewController.m; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		BBA3E70515B5234C002736E0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BBDAFE6F15BE345F0081D1D9 /* BXline_s.png */,
 				BBC9535015BC9C6100F180AB /* icon.png */,
 				BBC9535115BC9C6100F180AB /* icon@2x.png */,
 				BBA3E70615B52362002736E0 /* Default.png */,
@@ -270,6 +273,7 @@
 				BBC9534F15BC9ABF00F180AB /* Entitlements.plist in Resources */,
 				BBC9535215BC9C6100F180AB /* icon.png in Resources */,
 				BBC9535315BC9C6100F180AB /* icon@2x.png in Resources */,
+				BBDAFE7015BE345F0081D1D9 /* BXline_s.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
