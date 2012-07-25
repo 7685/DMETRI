@@ -401,8 +401,9 @@
     testResultVC.testID = _testID;
     testResultVC.testName = _testName;
     testResultVC.bottombarText = _testStatusText.text;
+//    code to get the app title on back button in the next view.
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: APP_TITLE 
+                                   initWithTitle: BACK_BUTTON_TITLE 
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
     

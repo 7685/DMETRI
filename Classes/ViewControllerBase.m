@@ -198,7 +198,13 @@
                                                               constrainedToSize:maximumLabelSize 
                                                                   lineBreakMode:UILineBreakModeWordWrap];
     
-    cell.textLabel.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
+    if (TEXT_BOLD == 1) {
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:FONT_HEIGHT];
+    }
+    else {
+        cell.textLabel.font = [UIFont fontWithName:FONT_NAME size:FONT_HEIGHT];
+    }
+    
     cell.textLabel.text = [arr valueForKey:DB_FIELD_ESCALA];
     cell.textLabel.numberOfLines = 5;
     cell.textLabel.frame = CGRectMake(cell.textLabel.frame.origin.x, cell.textLabel.frame.origin.y, cell.textLabel.frame.size.width, expectedLabelSize.height + 20);
@@ -265,6 +271,13 @@
     TestViewController *testVC = [[TestViewController alloc] init];
     testVC.testID = [[arr valueForKey:DB_FIELD_ID] intValue];
     testVC.testName = [arr valueForKey:DB_FIELD_ESCALA];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: BACK_BUTTON_TITLE 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    
+    [self.navigationItem setBackBarButtonItem: backButton];
+    [backButton release];
     [self.navigationController pushViewController:testVC animated:YES];
     [testVC release], testVC = nil;
 }

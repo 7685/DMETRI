@@ -9,8 +9,10 @@
 #define SPLASH_SLEEP_TIME 2
 #define DATABASE_FILE_NAME @"database.sqlite"
 
+//font related
 #define FONT_NAME @"Verdana"
 #define FONT_HEIGHT 16
+#define TEXT_BOLD 0
 
 //size constants
 #define IMG_TEST_HEIGHT 75
@@ -29,6 +31,7 @@
 #define TEST_RESULT_TEXT @"Jadadosis aguda"
 #define APP_TITLE @"D-Health"
 #define SEARCH_TITLE @"Busca..."
+#define BACK_BUTTON_TITLE @"Back"
 
 //sql queries
 #define SQL_QUERY_ALL_ESCALA @"SELECT * FROM escalas"
